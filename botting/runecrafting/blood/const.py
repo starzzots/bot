@@ -1,6 +1,8 @@
 screen = (0,0,1920,1080)
+timerRed = (161,21,21)
+timerLoc = (1774,168)
 running = False
-miningcolor=(89,58)
+miningcolor=(76,58)
 panelcolor = (70,61,50)
 playerPos=(820,530)
 delta = 7
