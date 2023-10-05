@@ -223,7 +223,7 @@ class Mining():
     def __init__(self):
         try:
             self.climb1pos = Item(climb1)
-            self.climb1box=makeBox(self.climb1pos.findobj(),(4,8),(5,8))
+            self.climb1box=makeBox(self.climb1pos.findobj(),(8,10),(2,4))
         except:
             print('fuck')
         try:

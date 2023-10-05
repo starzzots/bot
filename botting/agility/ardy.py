@@ -1,131 +1,78 @@
-import pyautogui as pg
-import time
-import keyboard
-import random
-import win32con, win32api
+from stuff import *
 import sys
-"""
-zoom 200
-"""
 
-running = False
-token=(838,529)
+pos1=(255,0,70)
+pos2=(255,0,71)
+pos3=(255,0,72)
+pos4=(255,0,73)
+pos5=(255,0,74)
+pos6=(255,0,75)
+pos7=(255,0,76)
+fail1=(0,0,1)
+fail2=(0,1,0)
+sleep=2
 
-check1=(1058,593)
-check2=(877,392)
-check3=(783,487)
-check4=(958,487)
-check5=(735,574)
-check6=(792,779)
-check7=(903,651)
+gracecheck=(170,22,13)
+nomark=(163,138,98)
+laps=0
+newtotal=0
+total = 0
+while True:
 
-failed = (758,766)
-failed2 = (859,493)
-
-random_pix_move_y = random.randrange(25,27,1)
-random_pix_move_x = random.randrange(-40,40,8)
-
-random_multi = random.randrange(30,50,1)/100
-
-random_sleep= random.randrange(30,40,1)/100
-random_sleep2= random.randrange(10,40,1)/100
-random_long_sleep = random.randrange(20,50,1)/100
-
-laps = 0
-tokens = 0
-
-def checkpixel(x,y):
-    return pg.pixel(x,y)
-
-def right_click_box(x_min, x_max, y_min, y_max):
-    new_x = random.randrange(x_min, x_max+1)
-    new_y = random.randrange(y_min, y_max+1)
-    pg.moveTo(new_x,new_y, duration=random_sleep2)
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN,new_x,new_y,0,0)
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP,new_x,new_y,0,0)
-    time.sleep(random_sleep)
+    center=pg.pixel(816,530)
+    mark = pg.pixel(835,530)
     
-    pg.moveTo(new_x + random_pix_move_x, new_y + random_pix_move_y, duration=random_sleep2)
-    #win32api.SetCursorPos((new_x + random_pix_move_x, new_y + random_pix_move_y))
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, new_x + random_pix_move_x, new_y + random_pix_move_y, 0, 0)
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, new_x + random_pix_move_x, new_y + random_pix_move_y, 0, 0)
-    time.sleep(random_sleep)
-
-def left_click_box(x_min, x_max, y_min, y_max):
-    new_x = random.randrange(x_min, x_max+1)
-    new_y = random.randrange(y_min, y_max+1)
-    pg.moveTo(new_x,new_y, duration=.3)
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, new_x, new_y, 0, 0)
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, new_x, new_y, 0, 0)
-    time.sleep(random_sleep)
-
-
-def quit():
-    global running
-    running = True
-#set hotkey to quit
-keyboard.add_hotkey('q',lambda:quit())
-
-while not running:
-    if checkpixel(check1[0],check1[1]) == (0,0,0):
-        print(f'Tokens= {tokens}  Laps= {laps}')
-        print('Course Start Found \nmoving to next location please wait...\n')
-        left_click_box(917,932,512,516)
-        time.sleep(6)
-    elif checkpixel(check2[0],check2[1]) == (0,0,0):
-        print('Obstacle 1 found \nmoving to next location please wait...\n')
-        left_click_box(806,813,315,325)
-        time.sleep(9)
-    elif checkpixel(check3[0],check3[1]) == (0,0,0):
-        print('Obstacle 2 found \nmoving to next location please wait...\n')
-        left_click_box(741,746,526,530)
-        time.sleep(8)
-    #check for token here too
-    elif checkpixel(check4[0],check4[1]) == (0,0,0):
-        if checkpixel(token[0],token[1]) == (184,0,0):
-            tokens += 1
-            print('Token Found \npicking token up please wait...\n')
-            left_click_box(835,840,525,532)
-            time.sleep(2.3)
-            print('Obstacle 3 found \nmoving to next location please wait...\n')
-            left_click_box(760,765,530,548)
-            time.sleep(3)
-        else:
-            print('Obstacle 3 found \nmoving to next location please wait...\n')
-            left_click_box(760,765,530,548)
-            time.sleep(3)
-
-    elif checkpixel(check5[0],check5[1]) == (0,0,0):
-        print('Obstacle 4 found \nmoving to next location please wait...\n')
-        left_click_box(810,823,629,644)
-        time.sleep(4.5)
-
-    elif checkpixel(check6[0],check6[1]) == (0,0,0):
-        print('Obstacle 5 found \nmoving to next location please wait...\n')
-        left_click_box(872,885,704,714)
-        time.sleep(7.7)
-
-    elif checkpixel(check7[0],check7[1]) == (0,0,0):
-        print('Obstacle 6 found \nmoving to next location please wait...\n')
-        laps += 1
-        left_click_box(829,835,540,553)
-        time.sleep(12)
-
-    #failed
-    elif checkpixel(failed[0],failed[1]) == (0,0,0):
-        print('Oops you fell \nmoving to start location please wait...\n')
-        left_click_box(953,969,789,802)
-        time.sleep(8.7)
-    elif checkpixel(failed2[0],failed2[1])==(0,0,0):
-        print('Oops you fell spot 2 \nmoving to start location please wait...\n')
-        left_click_box(1216,1240,894,910)
-        time.sleep(11)
-    else:
-        print(f'Script end \nTokens= {tokens}, Laps= {laps} \n')
-        sys.exit()
+    time.sleep(.3)
+    
+        
+    if center == pos1:
+        Randomize((807,815,364,371)).randleftspeed()
+        time.sleep(sleep)
+    elif center == fail1:
+        Randomize((921,933,727,739)).randleftspeed()
+        time.sleep(sleep)
+    elif center == pos2:     
+        Randomize((756,764,529,531)).randleftspeed()
+        time.sleep(sleep)
+    elif center == pos3 and mark == gracecheck:
+        Randomize((833,833,528,528)).randleftspeed()
+        time.sleep(sleep)
+    elif center == pos3 and mark == nomark:
+        Randomize((769,777,531,541)).randleftspeed()
+        time.sleep(sleep)
+    elif center == fail2:
+        Randomize((1131,1133,806,807)).randleftspeed()
+        time.sleep(sleep)    
+    elif center == pos4:
+        Randomize((816,822,605,615)).randleftspeed()
+        time.sleep(sleep)
+    elif center == pos5:
+        Randomize((860,866,664,671)).randleftspeed()
+        time.sleep(sleep)
+    elif center == pos6:
+        Randomize((826,834,537,548)).randleftspeed()
+        time.sleep(sleep)
+        laps+=1
+        total = newtotal+laps
+        print(f'laps={total}')
+        time.sleep(.1)
+    
+    elif laps == 300 and center == pos7:
+        keyboard.press('pageup')
+        time.sleep(5)
+        keyboard.release('pageup')
+        time.sleep(5)
+        keyboard.press('f2')
+        time.sleep(.5)
+        keyboard.release('f2')
+        time.sleep(.3)
+        print(f'laps={total}')
+        time.sleep(sleep)
+        newtotal=laps
+        laps = 0
+    elif center == pos7:
+        Randomize((894,902,516,519)).randleftspeed()
+        time.sleep(sleep)
+        
+    
+    

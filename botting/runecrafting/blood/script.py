@@ -56,9 +56,7 @@ class Runescrafting():
                     except:
                         pass
                 elif self.pos4.isTrue() and Bag().first == white and Bag().lastslot == bagcolor:
-                    self.climb1pos=Item(climb1).findobj()
-                    self.climb1box=makeBox(self.climb1pos,(4,6),(3,8))
-                    Randomize(self.climb1box).randleft()
+                    Randomize((819,825,539,547)).randleft()
                     time.sleep(3)
 
                 elif self.pos8.isTrue() and playerD==pos8Color:
