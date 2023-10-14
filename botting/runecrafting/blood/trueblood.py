@@ -87,7 +87,7 @@ while True:
     elif center == pos2:
         try:
             wallrect=findobj(wall)
-            Randomize((wallrect[0]+7,wallrect[0]+7,wallrect[1]+8,wallrect[1]+10)).randleftspeed()
+            Randomize((wallrect[0]+9,wallrect[0]+9,wallrect[1]+11,wallrect[1]+11)).randleftspeed()
             time.sleep(sleep)
         except:
             print('oops')
@@ -144,12 +144,12 @@ while True:
         time.sleep(sleep)
         energy = 0
 
-    elif center == pos8 and (npc_contact != 9 or energy != 2):
+    elif center == pos8 and energy != 2:
         portalrect=findobj(portal)
         Randomize((portalrect[0]+13,portalrect[0]+15,portalrect[1]+13,portalrect[1]+15)).randleftspeed()#teleport to kharyll from ornate pool
         time.sleep(sleep)
     elif center == yellow:
-        if runs == 145:
+        if runs == 100:
             keyboard.press('pageup')
             time.sleep(5)
             keyboard.release('pageup')
