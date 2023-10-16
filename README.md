@@ -5,7 +5,7 @@ it only runs in 1920x1080 resolution havent fixed it to rune on any pc yet
 can see how bot runs here - https://www.youtube.com/watch?v=jdZOW1HxIK4&ab_channel=KyleVerwey 
 
 Hello any and everyone,
-this is my botting script written in python with pyautogui and keyboard imputs with win32gui
+this is my botting script written in python with pyautogui and keyboard inputs with win32gui
 
 Firstly id like to say that this is educational and not product ready. I wanna show how im able to write scripts in python for osrs with runelite
 and hopefully help others create there own custom scripts for games they love and practice their skills at the same time
