@@ -10,6 +10,8 @@ this is my botting script written in python with pyautogui and keyboard inputs w
 Firstly id like to say that this is educational and not product ready. I wanna show how im able to write scripts in python for osrs with runelite
 and hopefully help others create there own custom scripts for games they love and practice their skills at the same time
 
+when running the script if you try you have to click the compass on minimap to face north then pull the zoom all the way back and look vertical
+
 
 The script im going to explain here is the trueblood.py script under the runescrafting folder in the blood secondary folder.
 
