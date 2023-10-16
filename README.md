@@ -1,6 +1,6 @@
 # bot
 osrs runelite color bot
-it only runs in 1920x1080 resolution havent fixed it to rune on any pc yet
+it only runs in 1920x1080 resolution havent fixed it to run on any pc yet
 
 can see how bot runs here - https://www.youtube.com/watch?v=jdZOW1HxIK4&ab_channel=KyleVerwey 
 
