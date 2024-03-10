@@ -69,8 +69,8 @@ def findobj(objsRGBVal):
         screen=pg.screenshot(region=(0,0,1920,1080))
         time.sleep(.3)
         width, height = screen.size
-        for x in range(0, width, 5):
-            for y in range(0, height, 5):
+        for y in range(0, height, 5):
+            for x in range(0, width, 5):
                 rgb = screen.getpixel((x, y))
                 if rgb==objsRGBVal:
                     flag = 1

@@ -1,9 +1,5 @@
 import pyautogui as pg
-import time
-import keyboard
-import random
-import win32con, win32api
-import sys
+from stuff import *
 """
 On startup click compose to face North
 set zoom distance to 200
@@ -12,181 +8,133 @@ and set so I can look vertical
 Remember to look up where I place Checks so I always know where to put them or improve on
 """
 
+sleep=2
 
-running = False
-fail1= (961,515)
-fail2 = (684,548)
+fail1= (0,0,10)
+fail2 = (0,0,9)
 
-start= (818,409)
-check1= (835,594)
-check2= (710,684)
-check3= (809,575)
-check4= (622,563)
-check5= (823,452)
-final= (655,638)
+token1color=(91,10,5)
+token2color=(125,111,7)
+token3color=(102,10,6)
+token4color=(80,8,4)
+token5color=(125,111,7)
 
+start= (0,0,2)
+check1= (0,0,3)
+check2= (0,0,4)
+check3= (0,0,5)
+check4= (0,0,6)
+check5= (0,0,7)
+check6= (0,0,8)
 
-random_pix_move_y = random.randrange(25,27,1)
-random_pix_move_x = random.randrange(-40,40,8)
+token1route=(844,848,541,544)
+token2route=(859,862,554,556)
+token3route=(847,850,567,568)
+token4route=(798,800,541,543)
+token5route=(833,835,553,556)
 
-random_multi = random.randrange(30,50,1)/100
+route_from_fail1=(836,837,272,273)
+route_from_fail2=(726,728,290,294)
 
-random_sleep= random.randrange(30,40,1)/100
-random_sleep2= random.randrange(10,40,1)/100
-random_long_sleep = random.randrange(20,50,1)/100
+obs1_click=(782,796,594,607)
+obs2_click=(831,835,645,651)
+obs3_click=(843,859,496,508)
+obs4_click=(869,877,507,520)
+obs5_click=(866,870,459,465)
+obs6_click=(804,818,458,470)
+obs7_click=(515,527,520,521)
 
-laps = 0
+laps = 150
 tokens = 0
 
-def checkpixel(x,y):
-    return pg.pixel(x,y)
+while True:
+    center=pg.pixel(816,530)
+    token1check=pg.pixel(846,543)
+    token2check=pg.pixel(858,555)
+    token3check=pg.pixel(848,568)
+    token4check=pg.pixel(798,545)
+    token5check=pg.pixel(833,554)
 
-def right_click_box(x_min, x_max, y_min, y_max):
-    new_x = random.randrange(x_min, x_max+1)
-    new_y = random.randrange(y_min, y_max+1)
-    pg.moveTo(new_x,new_y, duration=random_sleep2)
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN,new_x,new_y,0,0)
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP,new_x,new_y,0,0)
-    time.sleep(random_sleep)
-    
-    pg.moveTo(new_x + random_pix_move_x, new_y + random_pix_move_y, duration=random_sleep2)
-    #win32api.SetCursorPos((new_x + random_pix_move_x, new_y + random_pix_move_y))
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, new_x + random_pix_move_x, new_y + random_pix_move_y, 0, 0)
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, new_x + random_pix_move_x, new_y + random_pix_move_y, 0, 0)
-    time.sleep(random_sleep)
-
-def left_click_box(x_min, x_max, y_min, y_max):
-    new_x = random.randrange(x_min, x_max+1)
-    new_y = random.randrange(y_min, y_max+1)
-    pg.moveTo(new_x,new_y, duration=.3)
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, new_x, new_y, 0, 0)
-    time.sleep(random_sleep)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, new_x, new_y, 0, 0)
-    time.sleep(random_sleep)
-
-def quit():
-    global running
-    running = True
-#set hotkey to quit
-keyboard.add_hotkey('q',lambda:quit())
-
-while not running:
-    if checkpixel(1462,767) == (0,0,0):
-        sys.exit()
-    #failed 1
-    elif checkpixel(fail1[0],fail1[1]) == (0,0,0):
-        print('Failed spot 1')
-        print('Rerouting...')
-        left_click_box(836,836,199, 202)
-        time.sleep(11)
-    
-    #failed 2
-    elif checkpixel(fail2[0],fail2[1]) == (0,0,0):
-        print('Failed spot 2')
-        print('Rerouting...')
-        left_click_box(694,696,219,220)
+    if center == start:
+        if token4check == token4color:
+            Randomize(token4route).randleft()
+            time.sleep(3.5)
+            Randomize((803,819,580,593)).randleft()
+            time.sleep(sleep)
+        else:
+            Randomize(obs1_click).randleft()
+            time.sleep(sleep)
+    elif center == check1:
+        time.sleep(1)
+        Randomize(obs2_click).randleft()
+        time.sleep(10)#might need longer sleep timer here if cant find token after rope
+    elif center == fail1:
+        time.sleep(1)
+        Randomize(route_from_fail1).randleft()
         time.sleep(12)
-    
-    #first click
-    elif checkpixel(start[0],start[1]) == (0,0,0):
-        print('1 found \ncontinue 1...')
-        right_click_box(410,410,518,518)
-        time.sleep(13)
-        print('passed 1')
-    
-    #second click first token location chance check
-    elif checkpixel(check1[0],check1[1]) == (0,0,0):
-        if checkpixel(787,549) == (106,0,0):
-            print('Token 1 found \nrouting...')
-            left_click_box(783,789,547,553)
+    elif center == check2:
+        #add token finding logic in here
+        if token1check == token1color:
+            Randomize(token1route).randleft()
+            time.sleep(2.5)
+            Randomize((825,837,488,496)).randleft()
+            time.sleep(12)
+        elif token5check == token5color:
+            Randomize(token5route).randleft()
             time.sleep(3)
-            tokens += 1
-            print(f'you have {tokens} tokens')
-            left_click_box(793,802,595,621)
-            time.sleep(6)
-            
+            Randomize((841,853,474,484)).randleft()
+            time.sleep(12)
         else:
-            print('2 found \ncontinue 2...')
-            left_click_box(761,784,610,630)
-            time.sleep(7)
-            print('passed 2')
-    
-    #third click
-    elif checkpixel(check2[0],check2[1]) == (0,0,0):
-        print('3 found \ncontinue 3...')
-        left_click_box(828,838,679,694)
-        time.sleep(10)
-        print('passed 3')
-    
-    #fourth click tokens check 2 and 3
-    elif checkpixel(check3[0],check3[1]) == (0,0,0):
-        if checkpixel(838,564) == (115,0,0):
-            print('Token 2 found routing...')
-            left_click_box(836,840,563,569)
-            time.sleep(3)
-            tokens += 1
-            print(f'you have {tokens} tokens')
-            print('Countinue from token 2...')
-            left_click_box(848,857,456,476)
-            time.sleep(12.5)
-        elif checkpixel(852,550) == (101,0,0):
-            print('Token 3 found routing...')
-            left_click_box(848,855,545,551)
-            time.sleep(3)
-            tokens += 1
-            print(f'you have {tokens} tokens')
-            print('Countinue from token 3...')
-            left_click_box(818,825,472,489)
-            time.sleep(12.5)
-        else:
-            print('4 found. \nContinue 4...')
-            left_click_box(850,863,482,501)
-            time.sleep(12.5)
-            print('passed 4')
-    
-    #fifth click tokens check 3 and 4
-    elif checkpixel(check4[0],check4[1]) == (0,0,0):
-        if checkpixel(854,581) == (113,0,0):
-            print('Token 4 found \nrouting...')
-            left_click_box(852,856,577,582)
+            time.sleep(1)
+            Randomize(obs3_click).randleft()
+            time.sleep(12)
+    elif center == check3:
+
+        #add token finding logic in here
+        if token2check == token2color:
+            Randomize(token2route).randleft()
             time.sleep(4)
-            tokens += 1
-            print(f'you have {tokens} tokens')
-            left_click_box(847,855,458,476)
-            time.sleep(6)
-        elif checkpixel(870,567) == (101,0,0):
-            print('Token 5 found \nrouting...')
-            left_click_box(867,873,560,567)
+            Randomize((832,838,486,489)).randleft()
+            time.sleep(sleep)
+        elif token3check == token3color:
+            Randomize(token3route).randleft()
             time.sleep(4)
-            tokens += 1
-            print(f'you have {tokens} tokens')
-            left_click_box(833,843,472,490)
-            time.sleep(5)
+            Randomize((845,848,480,485)).randleft()
+            time.sleep(sleep)
         else:
-            print('5 found. \nContinue 5...')
-            left_click_box(879,891,502,512)
-            time.sleep(6.5)
-            print('passed 5')
-    
-    #sixth click
-    elif checkpixel(check5[0],check5[1]) == (0,0,0):
-        print('6 found. \nContinue 6...')
-        left_click_box(880,887,433,443)
-        time.sleep(10)
-        print('passed 6')
-    
-    #seventh click
-    elif checkpixel(final[0],final[1]) == (0,0,0):
-        print('7 found. \nContinue 7...')
-        left_click_box(790,812,415,449)
+            time.sleep(1)
+            Randomize(obs4_click).randleft()
+            time.sleep(sleep)
+    elif center == fail2:
+        time.sleep(1)
+        Randomize(route_from_fail2).randleft()
+        time.sleep(12)
+    elif center == check4:
+        time.sleep(1)
+        Randomize(obs5_click).randleft()
+        time.sleep(sleep)
+    elif center == check5:
+        time.sleep(1)
+        Randomize(obs6_click).randleft()
         time.sleep(6)
-        print('passed 7')
+    elif center == check6 and laps != 150:
         laps += 1
-        print(f'Laps= {laps}, Tokens= {tokens}')
+        print(f'laps= {laps}')
+        time.sleep(1)
+        Randomize(obs7_click).randleft()
+        time.sleep(14)
+    elif center == check6 and laps == 150:    
+        keyboard.press('page down')
+        time.sleep(.2)
+        keyboard.release('page down')
+        
+        time.sleep(10)
+        keyboard.press('x')
+        time.sleep(.2)
+        keyboard.release('x')
+        time.sleep(.2)
+        laps = 0
+        print(laps)
+        time.sleep(3)
     else:
-        sys.exit()
+        pass

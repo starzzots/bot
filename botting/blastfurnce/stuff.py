@@ -27,12 +27,12 @@ class Randomize():
 
     def shiftclick(self):
         keyboard.press('shift')
-        pg.moveTo(self.new_x,self.new_y, duration=.25)
-        time.sleep(.05)
+        pg.moveTo(self.new_x,self.new_y, duration=.08)
+        time.sleep(self.random_sleep3)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, self.new_x, self.new_y, 0, 0)
-        time.sleep(.05)
+        time.sleep(self.random_sleep3)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, self.new_x, self.new_y, 0, 0)
-        time.sleep(.08)
+        time.sleep(self.random_sleep3)
         keyboard.release('shift')
 
     def move(self):
@@ -57,13 +57,13 @@ class Randomize():
     
     def dragmove(self,x,y):
         pg.moveTo(self.new_x,self.new_y, duration=.3)
-        time.sleep(.1)
+        time.sleep(self.random_sleep)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, self.new_x, self.new_y, 0, 0)
         pg.moveTo(x, y, duration=.6)
         win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
-        time.sleep(.1)
+        time.sleep(self.random_sleep3)
 
-def findobj(objsRGBVal,screen):
+def findobj(objsRGBVal):
         flag=0
         
         screen=pg.screenshot(region=(0,0,1920,1080))
@@ -81,3 +81,4 @@ def findobj(objsRGBVal,screen):
                             
             if flag == 1:
                     return new_x,new_y
+            

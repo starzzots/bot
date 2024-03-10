@@ -1,6 +1,6 @@
 from stuff import *
 import sys
-
+"""zoom set to 200"""
 pos1=(255,0,70)
 pos2=(255,0,71)
 pos3=(255,0,72)
